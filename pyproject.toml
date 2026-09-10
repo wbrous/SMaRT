@@ -1,0 +1,8 @@
+[project]
+name = "smrt"
+version = "0.1.0"
+description = "SMaRT: Sliding-window Memory and Recall Transformer — sliding-window local attention + Titans-style neural long-term memory."
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

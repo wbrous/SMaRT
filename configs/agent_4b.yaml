@@ -1,0 +1,73 @@
+model:
+  vocab_size: 200027
+  d_model: 2560
+  num_layers: 55
+  num_persistent_tokens: 80
+  mlp_hidden_dim: 6848
+  dropout: 0.0
+  attention:
+    window_size: 5120
+    num_heads: 40
+    num_kv_heads: 10
+    head_dim: 64
+  memory:
+    key_dim: 320
+    value_dim: 320
+    hidden_dim: 1280
+    num_mlp_layers: 2
+    momentum_init: 2.0
+    forget_init: -2.0
+    lr_init: -2.0
+    chunk_size: 1280
+
+train:
+  backend: auto
+  base_micro_batch: 8
+  base_grad_accum: 4
+  lr: 0.0003
+  weight_decay: 0.1
+  warmup_steps: 1000
+  max_steps: 40000
+  seq_len: 65536
+  checkpoint_every: 1000
+  checkpoint_dir: checkpoints
+  seed: 0
+  batch_source_schedule:
+    - needle
+    - tool_needle
+    - needle
+    - tool_needle
+    - code
+    - code
+    - code
+    - code
+    - code
+    - code
+    - code
+    - code
+    - text
+    - text
+    - text
+    - text
+    - text
+    - text
+    - text
+    - text
+
+curriculum:
+  - min_step: 0
+    context_len: 2048
+    haystack_filler_tokens: 1800
+    needle_depth_bins: 5
+  - min_step: 2000
+    context_len: 8192
+    haystack_filler_tokens: 7900
+    needle_depth_bins: 5
+  - min_step: 6000
+    context_len: 32768
+    haystack_filler_tokens: 32500
+    needle_depth_bins: 5
+  - min_step: 10000
+    context_len: 65536
+    haystack_filler_tokens: 65000
+    needle_depth_bins: 5

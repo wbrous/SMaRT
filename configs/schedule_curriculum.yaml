@@ -1,0 +1,16 @@
+# Reference copy of the curriculum schedule embedded in configs/base_50m.yaml.
+# YAML has no native cross-file include, so load_config always reads one
+# self-contained file; this file documents the schedule standalone.
+curriculum:
+  - min_step: 0
+    context_len: 2048
+    haystack_filler_tokens: 1800
+    needle_depth_bins: 5
+  - min_step: 2000
+    context_len: 8192
+    haystack_filler_tokens: 7900
+    needle_depth_bins: 5
+  - min_step: 6000
+    context_len: 32768
+    haystack_filler_tokens: 32500
+    needle_depth_bins: 5

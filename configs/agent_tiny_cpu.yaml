@@ -1,0 +1,54 @@
+model:
+  vocab_size: 200027
+  d_model: 32
+  num_layers: 1
+  num_persistent_tokens: 2
+  mlp_hidden_dim: 64
+  dropout: 0.0
+  attention:
+    window_size: 32
+    num_heads: 2
+    num_kv_heads: 2
+    head_dim: 16
+  memory:
+    key_dim: 8
+    value_dim: 8
+    hidden_dim: 16
+    num_mlp_layers: 2
+    momentum_init: 2.0
+    forget_init: -2.0
+    lr_init: -2.0
+    chunk_size: 16
+
+train:
+  backend: cpu
+  base_micro_batch: 1
+  base_grad_accum: 1
+  lr: 0.0003
+  weight_decay: 0.0
+  warmup_steps: 1
+  max_steps: 2
+  seq_len: 2048
+  checkpoint_every: 1
+  checkpoint_dir: /tmp/agent_tiny_ckpt
+  seed: 0
+
+curriculum:
+  - min_step: 0
+    context_len: 2048
+    haystack_filler_tokens: 1800
+    needle_depth_bins: 3
+
+sft:
+  backend: cpu
+  base_micro_batch: 1
+  base_grad_accum: 1
+  lr: 0.0003
+  weight_decay: 0.0
+  warmup_steps: 1
+  max_steps: 10
+  seq_len: 256
+  checkpoint_every: 10
+  checkpoint_dir: /tmp/agent_tiny_sft_ckpt
+  seed: 0
+  init_checkpoint: /tmp/agent_tiny_ckpt/step_2.pt

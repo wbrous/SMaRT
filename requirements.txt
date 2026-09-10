@@ -1,0 +1,9 @@
+# torch is installed separately per README.md's per-machine instructions;
+# it is intentionally NOT listed here.
+pyyaml==6.0.3
+datasets==5.0.1
+tiktoken==0.14.0
+matplotlib==3.11.1
+pytest==9.1.1
+numpy==2.4.6
+jsonschema==4.26.0

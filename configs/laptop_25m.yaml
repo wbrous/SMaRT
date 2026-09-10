@@ -1,0 +1,40 @@
+model:
+  vocab_size: 50257
+  d_model: 384
+  num_layers: 13
+  num_persistent_tokens: 8
+  mlp_hidden_dim: 1024
+  dropout: 0.0
+  attention:
+    window_size: 512
+    num_heads: 6
+    num_kv_heads: 6
+    head_dim: 64
+  memory:
+    key_dim: 64
+    value_dim: 64
+    hidden_dim: 256
+    num_mlp_layers: 2
+    momentum_init: 2.0
+    forget_init: -2.0
+    lr_init: -2.0
+    chunk_size: 256
+
+train:
+  backend: cpu
+  base_micro_batch: 2
+  base_grad_accum: 1
+  lr: 0.0008
+  weight_decay: 0.1
+  warmup_steps: 30
+  max_steps: 320
+  seq_len: 256
+  checkpoint_every: 1000
+  checkpoint_dir: checkpoints/laptop_25m
+  seed: 0
+
+curriculum:
+  - min_step: 0
+    context_len: 256
+    haystack_filler_tokens: 200
+    needle_depth_bins: 3

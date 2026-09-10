@@ -1,0 +1,40 @@
+model:
+  vocab_size: 256
+  d_model: 64
+  num_layers: 2
+  num_persistent_tokens: 4
+  mlp_hidden_dim: 192
+  dropout: 0.0
+  attention:
+    window_size: 64
+    num_heads: 2
+    num_kv_heads: 2
+    head_dim: 32
+  memory:
+    key_dim: 32
+    value_dim: 32
+    hidden_dim: 64
+    num_mlp_layers: 2
+    momentum_init: 2.0
+    forget_init: -2.0
+    lr_init: -2.0
+    chunk_size: 32
+
+train:
+  backend: cpu
+  base_micro_batch: 4
+  base_grad_accum: 1
+  lr: 0.0003
+  weight_decay: 0.01
+  warmup_steps: 5
+  max_steps: 20
+  seq_len: 256
+  checkpoint_every: 10
+  checkpoint_dir: checkpoints
+  seed: 0
+
+curriculum:
+  - min_step: 0
+    context_len: 256
+    haystack_filler_tokens: 200
+    needle_depth_bins: 3
